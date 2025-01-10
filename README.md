@@ -30,7 +30,7 @@ Chats使用`C#`/`TypeScript`开发，有关如何编译Chats，请查看 [开发
 对于大多数用户而言，Docker 提供了最简单快速的部署方式。以下是一步到位的部署命令：
 
 ```bash
-mkdir ./AppData && chmod 777 ./AppData && docker run --restart unless-stopped --name sdcb-chats -e DBType=sqlite -e ConnectionStrings__ChatsDB="Data Source=./AppData/chats.db" -v ./AppData:/app/AppData -p 8080:8080 sdcb/chats:latest
+mkdir ./AppData && chmod 777 ./AppData && docker run --restart unless-stopped --name sdcb-chats -e DBType=sqlite -e ConnectionStrings__ChatsDB="Data Source=./AppData/chats.db" -v $(pwd)/AppData:/app/AppData -p 8080:8080 sdcb/chats:latest
 ```
 
 #### 说明：
@@ -46,7 +46,7 @@ mkdir ./AppData && chmod 777 ./AppData && docker run --restart unless-stopped --
 - **非首次运行**：如果您的 `AppData` 目录已经创建并且 Docker 用户对其有写入权限，可以简化启动命令如下：
 
     ```bash
-    docker run --restart unless-stopped --name sdcb-chats -v ./AppData:/app/AppData -p 8080:8080 sdcb/chats:latest
+    docker run --restart unless-stopped --name sdcb-chats -v $(pwd)/AppData:/app/AppData -p 8080:8080 sdcb/chats:latest
     ```
 
 - **数据库初始化**：容器启动后，如果数据库文件不存在，将自动创建并插入初始数据。初始管理员用户名为 `chats`，默认密码为 `RESET!!!`。强烈建议您在首次登录后立即前往左下角的用户管理界面，设置一个新密码以确保安全。
